@@ -17,13 +17,13 @@ require_once '../app/app.php';
             <div class="navbar-collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item<?php if ($page === 'encrypt'): ?> active<?php endif; ?>">
-                        <a href="/?action=encrypt" rel="nofollow" class="nav-link">
+                        <a href="/?action=encrypt" class="nav-link" rel="nofollow">
                             <em class="fas fa-unlock"></em>
                             Encrypt
                         </a>
                     </li>
                     <li class="nav-item<?php if ($page === 'decrypt'): ?> active<?php endif; ?>">
-                        <a href="/?action=decrypt" rel="nofollow" class="nav-link">
+                        <a href="/?action=decrypt" class="nav-link" rel="nofollow">
                             <em class="fas fa-lock"></em>
                             Decrypt
                         </a>
@@ -31,7 +31,7 @@ require_once '../app/app.php';
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a href="https://github.com/Flower7C3/php-cryptor-form">
+                        <a href="https://github.com/Flower7C3/php-cryptor-form" class="nav-link">
                             <em class="fab fa-github"></em>
                             <span class="d-lg-none d-md-none d-sm-none">Source code</span>
                         </a>
