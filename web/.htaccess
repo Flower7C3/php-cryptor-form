@@ -1,0 +1,13 @@
+Options +FollowSymLinks
+RewriteEngine On
+RewriteBase /
+
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+RewriteCond %{HTTP_HOST} !^secret\.kwiatek\.pro$ [NC]
+RewriteRule ^(.*)$ https://secret.kwiatek.pro [R=301,L]
+
+Satisfy any
+
+RewriteRule ^.*\.git.* - [R=404]
