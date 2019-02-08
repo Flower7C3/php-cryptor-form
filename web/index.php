@@ -13,8 +13,8 @@ require_once '../app/app.php';
         <title>Hello, world!</title>
     </head>
     <body class="d-flex flex-column h-100">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class=" navbar-collapse" id="navbarSupportedContent">
+        <nav class="navbar navbar-expand-sm navbar-light bg-light mb-4">
+            <div class="navbar-collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item<?php if ($page === 'encrypt'): ?> active<?php endif; ?>">
                         <a href="/?action=encrypt" rel="nofollow" class="nav-link">
@@ -33,6 +33,7 @@ require_once '../app/app.php';
                     <li class="nav-item">
                         <a href="https://github.com/Flower7C3/php-cryptor-form">
                             <em class="fab fa-github"></em>
+                            <span class="d-lg-none d-md-none d-sm-none">Source code</span>
                         </a>
                     </li>
                 </ul>
@@ -104,9 +105,9 @@ require_once '../app/app.php';
         </main>
         <footer class="footer mt-auto py-3">
             <div class="container">
-                <span class="text-muted">
+                <small class="text-muted">
                     &copy; <a href="https://Kwiatek.pro">Kwiatek.pro</a>
-                </span>
+                </small>
             </div>
         </footer>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
