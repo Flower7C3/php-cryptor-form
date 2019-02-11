@@ -53,7 +53,7 @@ require_once '../app/app.php';
                             <em class="fas fa-fw fa-eye"></em> Decrypted string
                         </h5>
                         <p>
-                            <?php echo $decrypted ?>
+                            <?php echo nl2br($decrypted) ?>
                         </p>
                         <h5 class="alert-heading">
                             <em class="fas fa-fw fa-eye-slash"></em> Encrypted string
@@ -98,10 +98,10 @@ require_once '../app/app.php';
                                 <?php else: ?>
                                     <div class="input-group-prepend">
                                         <abbr class="input-group-text" title="Plain text string to encode">
-                                            <em class="fas fa-fw fa-eye"></em>
+                                            <em class="fas fa-fw fa-eye" style="align-self:self-start;margin-top:9px;"></em>
                                         </abbr>
                                     </div>
-                                    <input name="decrypted" class="form-control form-control-lg<?php if (!empty($invalid['decrypted'])): ?> is-invalid<?php endif; ?><?php if (!empty($valid['decrypted'])): ?> is-valid<?php endif; ?>" value="<?php echo $decrypted ?>" placeholder="Plain text string to encode"/>
+                                    <textarea rows="1" name="decrypted" id="decrypted" class="form-control form-control-lg<?php if (!empty($invalid['decrypted'])): ?> is-invalid<?php endif; ?><?php if (!empty($valid['decrypted'])): ?> is-valid<?php endif; ?>" style="resize:none" placeholder="Plain text string to encode"><?php echo $decrypted ?></textarea>
                                     <?php if (!empty($invalid['decrypted'])): ?>
                                         <div class="invalid-feedback">
                                             <?php echo $invalid['decrypted'] ?>
@@ -135,5 +135,14 @@ require_once '../app/app.php';
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+        <script>
+            var textarea = document.getElementById("decrypted");
+            var limit = 180;
+            textarea.oninput = function () {
+                textarea.style.height = "";
+                console.log(textarea.scrollHeight)
+                textarea.style.height = Math.min(textarea.scrollHeight, limit) + "px";
+            };
+        </script>
     </body>
 </html>
