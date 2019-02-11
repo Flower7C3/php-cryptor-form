@@ -4,7 +4,7 @@ require_once 'Cryptor.php';
 
 if (strtolower($_SERVER['SERVER_SOFTWARE']) === 'apache') {
     $config = [
-        'share_url' => '/crypt.html?%s',
+        'share_url' => '/encrypted/%s',
         'form_url' => '/%s.html',
     ];
 } else {
