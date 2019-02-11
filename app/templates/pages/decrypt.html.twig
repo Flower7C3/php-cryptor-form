@@ -1,0 +1,12 @@
+{% extends '@app/pages/form.html.twig' %}
+{% import "@app/meta/forms.html.twig" as forms %}
+
+{% block input %}
+    <div class="input-group-prepend">
+        <abbr class="input-group-text" title="Encrypted string to decode">
+            <em class="fas fa-fw fa-eye-slash"></em>
+        </abbr>
+    </div>
+    <input type="text" name="encrypted" class="form-control form-control-lg{% if form.errors.encrypted %} is-invalid{% endif %}" value="{{ form.data.encrypted }}" placeholder="Encrypted string to decode"/>
+    {{ forms.error(form, 'encrypted') }}
+{% endblock %}

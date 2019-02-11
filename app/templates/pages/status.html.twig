@@ -1,0 +1,85 @@
+{% extends '@app/index.html.twig' %}
+
+{% block container %}
+    <div class="list-group">
+        <div class="list-group-item">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-2">
+                    <em class="fas fa-fw fa-key"></em> Secret key
+                </h5>
+                <div class="btn-group mb-2">
+                    <div class="btn btn-primary btn-sm js-tooltip js-copy" data-toggle="tooltip" data-placement="left" data-copy="{{ form.data.secret }}" title="Copy secret key to clipboard">
+                        <em class="fas fa-copy"></em>
+                    </div>
+                </div>
+            </div>
+            <p class="mb-1">
+                {{- form.data.secret -}}
+            </p>
+        </div>
+        <div class="list-group-item">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">
+                    <em class="fas fa-fw fa-eye"></em> Decrypted string
+                </h5>
+            </div>
+            <p class="mb-1">
+                {{- form.data.decrypted|nl2br -}}
+            </p>
+        </div>
+        <div class="list-group-item">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-2">
+                    <em class="fas fa-fw fa-eye-slash"></em> Encrypted string
+                </h5>
+                <div class="btn-group mb-2">
+                    <div class="btn btn-primary btn-sm js-tooltip js-copy" data-toggle="tooltip" data-placement="left" data-copy="{{ form.data.encrypted }}" title="Copy entrypted string to clipboard">
+                        <em class="fas fa-copy"></em>
+                    </div>
+                    <a href="{{ path('app_encrypted', {encrypted:form.data.encrypted}) }}" rel="nofollow" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="Open share link with encrypted string">
+                        <em class="fas fa-link"></em>
+                    </a>
+                </div>
+            </div>
+            <p class="d-inline-block text-truncate w-100 mb-1">
+                {{- form.data.encrypted -}}
+            </p>
+        </div>
+    </div>
+{% endblock %}
+
+ {% block scripts %}
+     {{ parent() }}
+     <script>
+         function copyToClipboard(text, el) {
+             var copyTest = document.queryCommandSupported('copy');
+             var elOriginalText = el.attr('data-original-title');
+             if (copyTest === true) {
+                 var copyTextArea = document.createElement("textarea");
+                 copyTextArea.value = text;
+                 document.body.appendChild(copyTextArea);
+                 copyTextArea.select();
+                 try {
+                     var successful = document.execCommand('copy');
+                     var msg = successful ? 'Copied!' : 'Whoops, not copied!';
+                     el.attr('data-original-title', msg).tooltip('show');
+                 } catch (err) {
+                     console.log('Oops, unable to copy');
+                 }
+                 document.body.removeChild(copyTextArea);
+                 el.attr('data-original-title', elOriginalText);
+             } else {
+                 window.prompt("Copy to clipboard: Ctrl+C or Command+C, Enter", text);
+             }
+         }
+
+         $(document).ready(function () {
+             $('.js-tooltip').tooltip();
+             $('.js-copy').click(function () {
+                 var text = $(this).attr('data-copy');
+                 var el = $(this);
+                 copyToClipboard(text, el);
+             });
+         });
+     </script>
+ {% endblock %}

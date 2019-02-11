@@ -1,0 +1,26 @@
+{
+    "require": {
+        "php": ">=7.1",
+        "symfony/symfony": "3.4",
+        "incenteev/composer-parameter-handler": "^2.1",
+        "symfony/dotenv": "3.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/classes"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
+        ],
+        "post-update-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
+        ]
+    },
+    "extra": {
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yaml"
+        }
+    }
+}

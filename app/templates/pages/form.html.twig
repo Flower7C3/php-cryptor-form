@@ -1,0 +1,31 @@
+{% extends '@app/index.html.twig' %}
+{% import "@app/meta/forms.html.twig" as forms %}
+
+{% block container %}
+    <form method="POST" action="{{ path('app_form_'~app.action) }}" autocomplete="off">
+        <div class="form-group">
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <abbr class="input-group-text" title="Your secret key">
+                        <em class="fas fa-fw fa-key"></em>
+                    </abbr>
+                </div>
+                <input type="text" name="secret" class="form-control form-control-lg{% if form.errors.secret %} is-invalid{% endif %}" value="{{ form.data.secret }}" placeholder="Your secret key"/>
+                {{ forms.error(form, 'secret') }}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group mb-2">
+                {% block input %}
+                {% endblock %}
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">
+                <em class="fas fa-angle-double-right"></em>
+                Submit
+            </button>
+        </div>
+        {{ forms.error(form, 'form') }}
+    </form>
+{% endblock %}

@@ -1,0 +1,3 @@
+<?php
+
+$localSecret = 'change_me';

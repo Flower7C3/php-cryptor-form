@@ -1,0 +1,9 @@
+{% macro error(form, name) %}
+    {% if form.errors[name] is not empty %}
+        {% for feedback in _context.form.errors[name] %}
+            <div class="invalid-feedback invalid-field-{{ name }}">
+                {{ feedback }}
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endmacro %}

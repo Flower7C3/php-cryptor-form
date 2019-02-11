@@ -1,0 +1,28 @@
+{% extends '@app/pages/form.html.twig' %}
+{% import "@app/meta/forms.html.twig" as forms %}
+
+{% block input %}
+    <div class="input-group-prepend">
+        <abbr class="input-group-text" title="Plain text string to encode">
+            <em class="fas fa-fw fa-eye" style="align-self:self-start;margin-top:9px;"></em>
+        </abbr>
+    </div>
+    <textarea rows="1" name="decrypted" id="decrypted" class="form-control form-control-lg{% if form.errors.decrypted %} is-invalid{% endif %}" style="resize:none" placeholder="Plain text string to encode">
+        {{- form.data.decrypted -}}
+    </textarea>
+    {{ forms.error(form, 'decrypted') }}
+{% endblock %}
+
+
+ {% block scripts %}
+     {{ parent() }}
+     <script>
+         var textarea = document.getElementById("decrypted");
+         var limit = 180;
+         textarea.oninput = function () {
+             textarea.style.height = "";
+             console.log(textarea.scrollHeight)
+             textarea.style.height = Math.min(textarea.scrollHeight, limit) + "px";
+         };
+     </script>
+ {% endblock %}

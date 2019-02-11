@@ -1,0 +1,14 @@
+imports:
+    - { resource: parameters.yaml }
+    - { resource: version.php }
+
+framework:
+    secret: "%secret%"
+    templating:
+        engines: ['twig']
+    profiler:
+        only_exceptions: false
+
+twig:
+    paths:
+        '%kernel.root_dir%/../app/templates': app

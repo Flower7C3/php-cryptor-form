@@ -1,1 +1,4 @@
 .idea/
+app/config/parameters.yaml
+vendor/
+var/
