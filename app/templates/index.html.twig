@@ -13,13 +13,13 @@
         <nav class="navbar navbar-expand-sm navbar-light bg-light mb-4">
             <div class="navbar-collapse">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item{% if app.action == 'encrypt' %} active{% endif %}">
+                    <li class="nav-item{% if app.request.attributes.get('_route') == 'app_form_encrypt' %} active{% endif %}">
                         <a href="{{ path('app_form_encrypt') }}" class="nav-link" rel="nofollow">
                             <em class="fas fa-unlock"></em>
                             Encrypt
                         </a>
                     </li>
-                    <li class="nav-item{% if app.action == 'decrypt' %} active{% endif %}">
+                    <li class="nav-item{% if app.request.attributes.get('_route') == 'app_form_decrypt' or app.request.attributes.get('_route') == 'app_encrypted' %} active{% endif %}">
                         <a href="{{ path('app_form_decrypt') }}" class="nav-link" rel="nofollow">
                             <em class="fas fa-lock"></em>
                             Decrypt

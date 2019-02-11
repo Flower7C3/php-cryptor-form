@@ -1,6 +1,5 @@
 imports:
     - { resource: parameters.yaml }
-    - { resource: version.php }
 
 framework:
     secret: "%secret%"
