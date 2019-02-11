@@ -17,7 +17,6 @@ class CryptorApp
     public function __construct($secret)
     {
         $this->secret = $secret;
-
     }
 
     public function encryptData(Request $request)

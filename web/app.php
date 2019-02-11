@@ -76,7 +76,7 @@ class MicroKernel extends Kernel
         $request = $container->get('request_stack')->getCurrentRequest();
 
         /* app */
-        $cryptorApp = new CryptorApp($container->getParameter('secret'));
+        $cryptorApp = new CryptorApp($container->getParameter('cryptor_master_secret'));
         switch ($request->attributes->get('_route')) {
             case 'app_form_encrypt':
                 $action = 'encrypt';
