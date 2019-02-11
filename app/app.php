@@ -14,80 +14,69 @@ if (strtolower($_SERVER['SERVER_SOFTWARE']) === 'apache') {
     ];
 }
 
-$secret = "";
-if (empty($secret) && isset($_POST['secret'])) {
-    $secret = $_POST['secret'];
-}
-
-$decrypted = "";
-if (empty($decrypted) && isset($_POST['decrypted'])) {
-    $decrypted = $_POST['decrypted'];
-}
-
-$encrypted = "";
-if (empty($encrypted) && isset($_GET['encrypted'])) {
-    $encrypted = $_GET['encrypted'];
-}
-if (empty($encrypted) && isset($_POST['encrypted'])) {
-    $encrypted = $_POST['encrypted'];
-}
+$invalid = [];
 
 $action = @$_GET['action'] ?: 'encrypt';
 $page = $action;
-$invalid = [];
-$valid = [];
+$secret = "";
+$decrypted = "";
+$encrypted = "";
 
-switch ($action) {
-    case 'encrypt';
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (!empty($secret) && !empty($decrypted)) {
+if (empty($secret)) {
+    if (isset($_POST['secret'])) {
+        $secret = $_POST['secret'];
+        if (empty($secret)) {
+            $invalid['secret'][] = 'Field can not be empty!';
+        }
+    } elseif ($action === 'encrypt') {
+        $secret = substr(str_replace(['+', '/', '='], '', base64_encode(random_bytes(32))), 0, 32);
+    }
+}
+
+if (empty($encrypted) && isset($_GET['encrypted'])) {
+    $encrypted = $_GET['encrypted'];
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    switch ($action) {
+        case 'encrypt';
+            if (empty($decrypted) && isset($_POST['decrypted'])) {
+                $decrypted = $_POST['decrypted'];
+            }
+            if (empty($decrypted)) {
+                $invalid['decrypted'][] = 'Field can not be empty!';
+            } else {
+                $decryptedClean = strip_tags($decrypted);
+                if ($decrypted !== $decryptedClean) {
+                    $invalid['decrypted'][] = 'Invalid characters found!';
+                }
+            }
+            if (empty($invalid)) {
                 $cryptor = new Cryptor($secret);
                 $encrypted = $cryptor->encrypt($decrypted);
                 if (!empty($encrypted)) {
-                    $action = 'status';
+                    $page = 'status';
                 } else {
-                    $invalid['form'] = 'Invalid enrypt response!';
-                }
-            } else {
-                if (empty($secret)) {
-                    $invalid['secret'] = 'Field can not be empty!';
-                } else {
-                    $valid['secret'] = '';
-                }
-                if (empty($decrypted)) {
-                    $invalid['decrypted'] = 'Field can not be empty!';
-                } else {
-                    $valid['decrypted'] = '';
+                    $invalid['form'][] = 'Invalid enrypt response!';
                 }
             }
-        } else {
-            if (empty($secret)) {
-                $secret = substr(str_replace(['+', '/', '='], '', base64_encode(random_bytes(32))), 0, 32);
+            break;
+        case 'decrypt';
+            if (empty($encrypted) && isset($_POST['encrypted'])) {
+                $encrypted = $_POST['encrypted'];
             }
-        }
-        break;
-    case 'decrypt';
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (!empty($secret) && !empty($encrypted)) {
+            if (empty($encrypted)) {
+                $invalid['encrypted'][] = 'Field can not be empty!';
+            }
+            if (empty($invalid)) {
                 $cryptor = new Cryptor($secret);
                 $decrypted = $cryptor->decrypt($encrypted);
                 if (!empty($decrypted)) {
-                    $action = 'status';
+                    $page = 'status';
                 } else {
-                    $invalid['form'] = 'Invalid decrypt response!';
-                }
-            } else {
-                if (empty($secret)) {
-                    $invalid['secret'] = 'Field can not be empty!';
-                } else {
-                    $valid['secret'] = '';
-                }
-                if (empty($encrypted)) {
-                    $invalid['encrypted'] = 'Field can not be empty!';
-                } else {
-                    $valid['encrypted'] = '';
+                    $invalid['form'][] = 'Invalid decrypt response!';
                 }
             }
-        }
-        break;
+            break;
+    }
 }

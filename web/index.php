@@ -41,7 +41,7 @@ require_once '../app/app.php';
         </nav>
         <main role="main" class="flex-shrink-0">
             <div class="container">
-                <?php if ($action === 'status' && !empty($encrypted) && !empty($decrypted) && !empty($secret)): ?>
+                <?php if ($page === 'status' && !empty($encrypted) && !empty($decrypted) && !empty($secret)): ?>
                     <div class="alert alert-success">
                         <h5 class="alert-heading">
                             <em class="fas fa-fw fa-key"></em> Secret key
@@ -73,27 +73,31 @@ require_once '../app/app.php';
                                         <em class="fas fa-fw fa-key"></em>
                                     </abbr>
                                 </div>
-                                <input type="text" name="secret" class="form-control form-control-lg<?php if (!empty($invalid['secret'])): ?> is-invalid<?php endif; ?><?php if (!empty($valid['secret'])): ?> is-valid<?php endif; ?>" value="<?php echo $secret ?>" placeholder="Your secret key"/>
+                                <input type="text" name="secret" class="form-control form-control-lg<?php if (!empty($invalid['secret'])): ?> is-invalid<?php endif; ?>" value="<?php echo $secret ?>" placeholder="Your secret key"/>
                                 <?php if (!empty($invalid['secret'])): ?>
-                                    <div class="invalid-feedback">
-                                        <?php echo $invalid['secret'] ?>
-                                    </div>
+                                    <?php foreach ($invalid['secret'] as $feedback): ?>
+                                        <div class="invalid-feedback">
+                                            <?php echo $feedback ?>
+                                        </div>
+                                    <?php endforeach; ?>
                                 <?php endif; ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group mb-2">
-                                <?php if ($action === 'decrypt'): ?>
+                                <?php if ($page === 'decrypt'): ?>
                                     <div class="input-group-prepend">
                                         <abbr class="input-group-text" title="Encrypted string to decode">
                                             <em class="fas fa-fw fa-eye-slash"></em>
                                         </abbr>
                                     </div>
-                                    <input type="text" name="encrypted" class="form-control form-control-lg<?php if (!empty($invalid['encrypted'])): ?> is-invalid<?php endif; ?><?php if (!empty($valid['encrypted'])): ?> is-valid<?php endif; ?>" value="<?php echo $encrypted ?>" placeholder="Encrypted string to decode"/>
+                                    <input type="text" name="encrypted" class="form-control form-control-lg<?php if (!empty($invalid['encrypted'])): ?> is-invalid<?php endif; ?>" value="<?php echo $encrypted ?>" placeholder="Encrypted string to decode"/>
                                     <?php if (!empty($invalid['encrypted'])): ?>
-                                        <div class="invalid-feedback">
-                                            <?php echo $invalid['encrypted'] ?>
-                                        </div>
+                                        <?php foreach ($invalid['encrypted'] as $feedback): ?>
+                                            <div class="invalid-feedback">
+                                                <?php echo $feedback ?>
+                                            </div>
+                                        <?php endforeach; ?>
                                     <?php endif; ?>
                                 <?php else: ?>
                                     <div class="input-group-prepend">
@@ -101,11 +105,13 @@ require_once '../app/app.php';
                                             <em class="fas fa-fw fa-eye" style="align-self:self-start;margin-top:9px;"></em>
                                         </abbr>
                                     </div>
-                                    <textarea rows="1" name="decrypted" id="decrypted" class="form-control form-control-lg<?php if (!empty($invalid['decrypted'])): ?> is-invalid<?php endif; ?><?php if (!empty($valid['decrypted'])): ?> is-valid<?php endif; ?>" style="resize:none" placeholder="Plain text string to encode"><?php echo $decrypted ?></textarea>
+                                    <textarea rows="1" name="decrypted" id="decrypted" class="form-control form-control-lg<?php if (!empty($invalid['decrypted'])): ?> is-invalid<?php endif; ?>" style="resize:none" placeholder="Plain text string to encode"><?php echo $decrypted ?></textarea>
                                     <?php if (!empty($invalid['decrypted'])): ?>
-                                        <div class="invalid-feedback">
-                                            <?php echo $invalid['decrypted'] ?>
-                                        </div>
+                                        <?php foreach ($invalid['decrypted'] as $feedback): ?>
+                                            <div class="invalid-feedback">
+                                                <?php echo $feedback ?>
+                                            </div>
+                                        <?php endforeach; ?>
                                     <?php endif; ?>
                                 <? endif; ?>
                             </div>
@@ -117,9 +123,11 @@ require_once '../app/app.php';
                             </button>
                         </div>
                         <?php if (!empty($invalid['form'])): ?>
-                            <div class="invalid-feedback d-block">
-                                <?php echo $invalid['form'] ?>
-                            </div>
+                            <?php foreach ($invalid['form'] as $feedback): ?>
+                                <div class="invalid-feedback d-block">
+                                    <?php echo $feedback ?>
+                                </div>
+                            <?php endforeach; ?>
                         <?php endif; ?>
                     </form>
                 <? endif; ?>
