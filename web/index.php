@@ -69,36 +69,58 @@ require_once '../app/app.php';
                         <div class="form-group">
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text">
+                                    <abbr class="input-group-text" title="Your secret key">
                                         <em class="fas fa-fw fa-key"></em>
-                                    </div>
+                                    </abbr>
                                 </div>
-                                <input type="text" name="secret" class="form-control form-control-lg<?php if (!empty($error)): ?> is-invalid<?php endif; ?>" value="<?php echo $secret ?>" placeholder="Your secret key"/>
+                                <input type="text" name="secret" class="form-control form-control-lg<?php if (!empty($invalid['secret'])): ?> is-invalid<?php endif; ?><?php if (!empty($valid['secret'])): ?> is-valid<?php endif; ?>" value="<?php echo $secret ?>" placeholder="Your secret key"/>
+                                <?php if (!empty($invalid['secret'])): ?>
+                                    <div class="invalid-feedback">
+                                        <?php echo $invalid['secret'] ?>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="input-group mb-2">
                                 <?php if ($action === 'decrypt'): ?>
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text">
+                                        <abbr class="input-group-text" title="Encrypted string to decode">
                                             <em class="fas fa-fw fa-eye-slash"></em>
-                                        </div>
+                                        </abbr>
                                     </div>
-                                    <input type="text" name="encrypted" class="form-control form-control-lg<?php if (!empty($error)): ?> is-invalid<?php endif; ?>" value="<?php echo $encrypted ?>" placeholder="Encrypted string to decode">
+                                    <input type="text" name="encrypted" class="form-control form-control-lg<?php if (!empty($invalid['encrypted'])): ?> is-invalid<?php endif; ?><?php if (!empty($valid['encrypted'])): ?> is-valid<?php endif; ?>" value="<?php echo $encrypted ?>" placeholder="Encrypted string to decode"/>
+                                    <?php if (!empty($invalid['encrypted'])): ?>
+                                        <div class="invalid-feedback">
+                                            <?php echo $invalid['encrypted'] ?>
+                                        </div>
+                                    <?php endif; ?>
                                 <?php else: ?>
                                     <div class="input-group-prepend">
-                                        <div class="input-group-text">
+                                        <abbr class="input-group-text" title="Plain text string to encode">
                                             <em class="fas fa-fw fa-eye"></em>
-                                        </div>
+                                        </abbr>
                                     </div>
-                                    <input name="decrypted" class="form-control form-control-lg<?php if (!empty($error)): ?> is-invalid<?php endif; ?>" value="<?php echo $decrypted ?>" placeholder="Plain text string to encode"/>
+                                    <input name="decrypted" class="form-control form-control-lg<?php if (!empty($invalid['decrypted'])): ?> is-invalid<?php endif; ?><?php if (!empty($valid['decrypted'])): ?> is-valid<?php endif; ?>" value="<?php echo $decrypted ?>" placeholder="Plain text string to encode"/>
+                                    <?php if (!empty($invalid['decrypted'])): ?>
+                                        <div class="invalid-feedback">
+                                            <?php echo $invalid['decrypted'] ?>
+                                        </div>
+                                    <?php endif; ?>
                                 <? endif; ?>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">
-                            <em class="fas fa-angle-double-right"></em>
-                            Submit
-                        </button>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">
+                                <em class="fas fa-angle-double-right"></em>
+                                Submit
+                            </button>
+                        </div>
+                        <?php if (!empty($invalid['form'])): ?>
+                            <div class="invalid-feedback d-block">
+                                <?php echo $invalid['form'] ?>
+                            </div>
+                        <?php endif; ?>
                     </form>
                 <? endif; ?>
             </div>

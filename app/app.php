@@ -28,33 +28,60 @@ if (empty($encrypted) && isset($_POST['encrypted'])) {
 
 $action = @$_GET['action'] ?: 'encrypt';
 $page = $action;
-$error = false;
+$invalid = [];
+$valid = [];
 
-if (!empty($action) && !empty($secret)) {
-    $cryptor = new Cryptor($secret);
-    switch ($action) {
-        case 'encrypt';
-            if (!empty($decrypted)) {
+switch ($action) {
+    case 'encrypt';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!empty($secret) && !empty($decrypted)) {
+                $cryptor = new Cryptor($secret);
                 $encrypted = $cryptor->encrypt($decrypted);
                 if (!empty($encrypted)) {
                     $action = 'status';
                 } else {
-                    $error = true;
+                    $invalid['form'] = 'Invalid enrypt response!';
+                }
+            } else {
+                if (empty($secret)) {
+                    $invalid['secret'] = 'Field can not be empty!';
+                } else {
+                    $valid['secret'] = '';
+                }
+                if (empty($decrypted)) {
+                    $invalid['decrypted'] = 'Field can not be empty!';
+                } else {
+                    $valid['decrypted'] = '';
                 }
             }
-            break;
-        case 'decrypt';
-            if (!empty($encrypted)) {
+        } else {
+            if (empty($secret)) {
+                $secret = substr(str_replace(['+', '/', '='], '', base64_encode(random_bytes(32))), 0, 32);
+            }
+        }
+        break;
+    case 'decrypt';
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!empty($secret) && !empty($encrypted)) {
+                $cryptor = new Cryptor($secret);
                 $decrypted = $cryptor->decrypt($encrypted);
                 if (!empty($decrypted)) {
                     $action = 'status';
                 } else {
-                    $error = true;
+                    $invalid['form'] = 'Invalid decrypt response!';
+                }
+            } else {
+                if (empty($secret)) {
+                    $invalid['secret'] = 'Field can not be empty!';
+                } else {
+                    $valid['secret'] = '';
+                }
+                if (empty($encrypted)) {
+                    $invalid['encrypted'] = 'Field can not be empty!';
+                } else {
+                    $valid['encrypted'] = '';
                 }
             }
-            break;
-    }
-}
-if ($action === 'encrypt' && empty($secret)) {
-    $secret = substr(str_replace(['+', '/', '='], '', base64_encode(random_bytes(32))), 0, 32);
+        }
+        break;
 }
