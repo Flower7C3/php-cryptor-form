@@ -17,13 +17,13 @@ require_once '../app/app.php';
             <div class="navbar-collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item<?php if ($page === 'encrypt'): ?> active<?php endif; ?>">
-                        <a href="/?action=encrypt" class="nav-link" rel="nofollow">
+                        <a href="<?php printf($config['form_url'], 'encrypt'); ?>" class="nav-link" rel="nofollow">
                             <em class="fas fa-unlock"></em>
                             Encrypt
                         </a>
                     </li>
                     <li class="nav-item<?php if ($page === 'decrypt'): ?> active<?php endif; ?>">
-                        <a href="/?action=decrypt" class="nav-link" rel="nofollow">
+                        <a href="<?php printf($config['form_url'], 'decrypt'); ?>" class="nav-link" rel="nofollow">
                             <em class="fas fa-lock"></em>
                             Decrypt
                         </a>
@@ -59,13 +59,13 @@ require_once '../app/app.php';
                             <em class="fas fa-fw fa-eye-slash"></em> Encrypted string
                         </h5>
                         <p class="d-inline-block text-truncate w-100">
-                            <a href="/?action=decrypt&encrypted=<?php echo $encrypted ?>" rel="nofollow">
+                            <a href="<?php printf($config['share_url'], $encrypted); ?>" rel="nofollow">
                                 <?php echo $encrypted ?>
                             </a>
                         </p>
                     </div>
                 <?php else: ?>
-                    <form method="POST" action="/?action=<?php echo $action ?>" autocomplete="off">
+                    <form method="POST" action="<?php printf($config['form_url'], $action); ?>" autocomplete="off">
                         <div class="form-group">
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">

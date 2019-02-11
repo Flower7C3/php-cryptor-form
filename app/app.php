@@ -2,6 +2,18 @@
 error_reporting(0);
 require_once 'Cryptor.php';
 
+if (strtolower($_SERVER['SERVER_SOFTWARE']) === 'apache') {
+    $config = [
+        'share_url' => '/crypt-%s.html',
+        'form_url' => '/%s.html',
+    ];
+} else {
+    $config = [
+        'share_url' => '/index.php?action=decrypt&encrypted=%s',
+        'form_url' => '/index.php?action=%s',
+    ];
+}
+
 $secret = "";
 if (empty($secret) && isset($_GET['secret'])) {
     $secret = $_GET['secret'];
