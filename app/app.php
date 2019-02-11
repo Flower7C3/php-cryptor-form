@@ -15,17 +15,11 @@ if (strtolower($_SERVER['SERVER_SOFTWARE']) === 'apache') {
 }
 
 $secret = "";
-if (empty($secret) && isset($_GET['secret'])) {
-    $secret = $_GET['secret'];
-}
 if (empty($secret) && isset($_POST['secret'])) {
     $secret = $_POST['secret'];
 }
 
 $decrypted = "";
-if (empty($decrypted) && isset($_GET['decrypted'])) {
-    $decrypted = $_GET['decrypted'];
-}
 if (empty($decrypted) && isset($_POST['decrypted'])) {
     $decrypted = $_POST['decrypted'];
 }
