@@ -33,12 +33,12 @@
                     <em class="fas fa-fw fa-eye-slash"></em> Encrypted string
                 </h5>
                 <div class="btn-group mb-2">
-                    <div class="btn btn-primary btn-sm js-tooltip js-copy" data-toggle="tooltip" data-placement="left" data-copy="{{ form.data.encrypted }}" title="Copy entrypted string to clipboard">
-                        <em class="fas fa-copy"></em>
-                    </div>
                     <a href="{{ path('app_encrypted', {encrypted:form.data.encrypted}) }}" rel="nofollow" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="left" title="Open share link with encrypted string">
                         <em class="fas fa-link"></em>
                     </a>
+                    <div class="btn btn-primary btn-sm js-tooltip js-copy" data-toggle="tooltip" data-placement="left" data-copy="{{ form.data.encrypted }}" title="Copy entrypted string to clipboard">
+                        <em class="fas fa-copy"></em>
+                    </div>
                 </div>
             </div>
             <p class="d-inline-block text-truncate w-100 mb-1">
