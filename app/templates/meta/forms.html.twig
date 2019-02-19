@@ -1,7 +1,7 @@
-{% macro error(form, name) %}
+{% macro error(form, name, extraClass) %}
     {% if form.errors[name] is not empty %}
         {% for feedback in _context.form.errors[name] %}
-            <div class="invalid-feedback invalid-field-{{ name }}">
+            <div class="invalid-feedback invalid-field-{{ name }} {{ extraClass }}">
                 {{ feedback }}
             </div>
         {% endfor %}
