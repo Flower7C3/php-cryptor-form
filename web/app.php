@@ -44,7 +44,7 @@ class MicroKernel extends Kernel
         $routes->add('/encrypt', 'kernel:renderFormAction', 'app_form_encrypt');
         $routes->add('/decrypt', 'kernel:renderFormAction', 'app_form_decrypt');
         $routes->add('/encrypted/{encrypted}', 'kernel:renderFormAction', 'app_encrypted');
-        $routes->add('/encrypted/{encrypted}/{hash}', 'kernel:renderFormAction', 'app_encrypted_hash');
+        $routes->add('/encrypted/{hash}/{encrypted}', 'kernel:renderFormAction', 'app_encrypted_hash');
     }
 
     public function getCacheDir()
