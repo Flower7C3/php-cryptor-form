@@ -33,6 +33,10 @@ class CryptorApp
         $data = [];
         $errors = [];
 
+        if (empty($this->secret)) {
+            $errors['form'][] = 'Instance secret key is empty. Please fix app configuration!';
+        }
+
         $randomSecret = substr(str_replace(['+', '/', '='], '', base64_encode(random_bytes(32))), 0, 32);
         $data['secret'] = $request->request->get('secret', $randomSecret);
         $data['encrypted'] = '';
@@ -75,6 +79,11 @@ class CryptorApp
         $success = false;
         $data = [];
         $errors = [];
+
+        if (empty($this->secret)) {
+            $errors['form'][] = 'Instance secret key is empty. Please fix app configuration!';
+        }
+
         $data['secret'] = $request->request->get('secret');
         $data['encrypted'] = $request->attributes->get('encrypted', $request->query->get('encrypted', $request->request->get('encrypted')));
         $data['decrypted'] = '';
