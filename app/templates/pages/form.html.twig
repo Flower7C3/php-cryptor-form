@@ -5,20 +5,31 @@
     <form method="POST" action="{{ path(form_action) }}" autocomplete="off">
         <div class="form-group">
             <div class="input-group mb-2">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">
-                        <em class="fas fa-fw fa-key"></em>
-                    </span>
-                </div>
-                <input type="text" name="secret" class="form-control form-control-lg{% if form.errors.secret %} is-invalid{% endif %} js-tooltip" value="{{ form.data.secret }}" placeholder="Your secret key" data-toggle="tooltip" data-placement="top" title="Your secret key"/>
-                <input type="text" class="col form-control form-control-lg{% if form.errors.hash %} is-invalid{% endif %} js-tooltip" value="{{ cyptor_hash }}" disabled data-toggle="tooltip" data-placement="top" title="Instance secret key hash"/>
-                {{ forms.error(form, 'secret') }}
-                {{ forms.error(form, 'hash') }}
+                {% block secret_row %}
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">
+                            <em class="fas fa-fw fa-key"></em>
+                        </span>
+                    </div>
+                    {% block secret_first_input %}
+                        <input type="password" name="secret" class="form-field-secret form-control form-control-lg{% if form.errors.secret %} is-invalid{% endif %} js-tooltip" value="{{ form.data.secret }}" placeholder="Your secret key" data-toggle="tooltip" data-placement="top" title="Your secret key"/>
+                    {% endblock %}
+                    {% block secret_second_input %}
+                    {% endblock %}
+                    <div class="input-group-append">
+                        <div class="btn btn-outline-warning btn-lg js-tooltip btn-show-text" role="button" for=".form-field-secret" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show secret key">
+                            <em class="fas fa-fw fa-eye"></em>
+                        </div>
+                    </div>
+                    <input type="text" class="col form-control form-control-lg{% if form.errors.hash %} is-invalid{% endif %} js-tooltip" value="{{ cyptor_hash }}" disabled data-toggle="tooltip" data-placement="top" title="Instance secret key hash"/>
+                    {{ forms.error(form, 'secret') }}
+                    {{ forms.error(form, 'hash') }}
+                {% endblock %}
             </div>
         </div>
         <div class="form-group">
             <div class="input-group mb-2">
-                {% block input %}
+                {% block input_row %}
                 {% endblock %}
             </div>
         </div>
@@ -37,6 +48,14 @@
     <script>
         $(document).ready(function () {
             $('.js-tooltip').tooltip();
+            $('.btn-show-text').click(function () {
+                var $el = $($(this).attr('for'));
+                if ($(this).hasClass('active')) {
+                    $el.attr('type', 'password');
+                } else {
+                    $el.attr('type', 'text');
+                }
+            });
         });
     </script>
 {% endblock %}

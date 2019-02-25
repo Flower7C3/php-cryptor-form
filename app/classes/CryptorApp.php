@@ -39,12 +39,19 @@ class CryptorApp
 
         $randomSecret = substr(str_replace(['+', '/', '='], '', base64_encode(random_bytes(32))), 0, 32);
         $data['secret'] = $request->request->get('secret', $randomSecret);
+        $data['secret2'] = $request->request->get('secret2', $randomSecret);
         $data['encrypted'] = '';
         $data['decrypted'] = $request->request->get('decrypted');
 
         if ($request->getMethod() === 'POST') {
             if (empty($data['secret'])) {
                 $errors['secret'][] = 'Field can not be empty!';
+            }
+            if (empty($data['secret2'])) {
+                $errors['secret'][] = 'Field can not be empty!';
+            }
+            if ($data['secret'] !== $data['secret2']) {
+                $errors['secret'][] = 'The given secrets are not the same!'
             }
             if (empty($data['decrypted'])) {
                 $errors['decrypted'][] = 'Field can not be empty!';

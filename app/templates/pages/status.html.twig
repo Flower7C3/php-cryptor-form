@@ -8,60 +8,80 @@
                     <em class="fas fa-fw fa-mask"></em> Instance secret key hash
                 </h5>
             </div>
-            <p class="mb-1">
+            <p>
                 {{- cyptor_hash -}}
             </p>
         </div>
         <div class="list-group-item">
             <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-2">
+                <h5>
                     <em class="fas fa-fw fa-key"></em> Your secret key
                 </h5>
-                <div class="btn-group mb-2">
-                    <div class="btn btn-primary btn-sm js-tooltip js-copy" data-toggle="tooltip" data-placement="left" data-copy="{{ form.data.secret }}" title="Copy secret key to clipboard">
-                        <em class="fas fa-copy"></em>
+                <div class="btn-group">
+                    <div class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="{{ form.data.secret }}" title="Copy secret key to clipboard">
+                        <em class="fas fa-fw fa-copy"></em>
+                    </div>
+                    <div class="btn btn-outline-warning btn-sm js-tooltip btn-show-text" role="button" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show secret key">
+                        <em class="fas fa-fw fa-eye"></em>
                     </div>
                 </div>
             </div>
-            <p class="mb-1">
-                {{- form.data.secret -}}
-            </p>
+            <div>
+                <div class="text-asterix">***</div>
+                <div class="text-plain d-none">
+                    {{- form.data.secret -}}
+                </div>
+            </div>
         </div>
         <div class="list-group-item">
             <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-2">
-                    <em class="fas fa-fw fa-eye"></em> Decrypted string
+                <h5>
+                    <em class="far fa-fw fa-comment-alt"></em> Decrypted string
                 </h5>
-                <div class="btn-group mb-2">
-                    <div class="btn btn-primary btn-sm js-tooltip js-copy" data-toggle="tooltip" data-placement="left" data-copy="{{ form.data.decrypted }}" title="Copy decrypted string to clipboard">
-                        <em class="fas fa-copy"></em>
+                <div class="btn-group">
+                    <div class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="{{ form.data.decrypted }}" title="Copy decrypted string to clipboard">
+                        <em class="fas fa-fw fa-copy"></em>
+                    </div>
+                    <div class="btn btn-outline-warning btn-sm js-tooltip btn-show-text" role="button" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show decrypted string">
+                        <em class="fas fa-fw fa-eye"></em>
                     </div>
                 </div>
             </div>
-            <p class="mb-1">
-                {{- form.data.decrypted|nl2br -}}
-            </p>
+            <div>
+                <div class="text-asterix">***</div>
+                <div class="text-plain d-none">
+                    {{- form.data.decrypted|nl2br -}}
+                </div>
+            </div>
         </div>
         <div class="list-group-item">
             <div class="d-flex w-100 justify-content-between">
-                <h5 class="mb-2">
-                    <em class="fas fa-fw fa-eye-slash"></em> Encrypted string
+                <h5>
+                    <em class="fas fa-fw fa-hashtag"></em> Encrypted string
                 </h5>
-                <div class="btn-group mb-2">
-                    <a href="{{ path('app_encrypted', {encrypted:form.data.encrypted}) }}" rel="nofollow" class="btn btn-secondary btn-sm js-tooltip" data-toggle="tooltip" data-placement="left" title="Open share link with encrypted string">
-                        <em class="fas fa-external-link-alt"></em>
+                <div class="btn-group">
+                    <a class="btn btn-outline-secondary btn-sm js-tooltip" href="{{ path('app_encrypted', {encrypted:form.data.encrypted}) }}" target="_blank" rel="nofollow" data-toggle="tooltip" data-placement="top" title="Open share link with encrypted string">
+                        <em class="fas fa-fw fa-external-link-alt"></em>
                     </a>
-                    <div class="btn btn-primary btn-sm js-tooltip js-copy" data-toggle="tooltip" data-placement="left" data-copy="{{ url('app_encrypted', {encrypted:form.data.encrypted}) }}" title="Copy entrypted link to clipboard">
-                        <em class="fas fa-link"></em>
+                    <div class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="{{ url('app_encrypted', {encrypted:form.data.encrypted}) }}" title="Copy entrypted link to clipboard">
+                        <em class="fas fa-fw fa-link"></em>
                     </div>
-                    <div class="btn btn-primary btn-sm js-tooltip js-copy" data-toggle="tooltip" data-placement="left" data-copy="{{ form.data.encrypted }}" title="Copy entrypted string to clipboard">
-                        <em class="fas fa-copy"></em>
+                    <div class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="{{ form.data.encrypted }}" title="Copy entrypted string to clipboard">
+                        <em class="fas fa-fw fa-copy"></em>
+                    </div>
+                    <div class="btn btn-outline-warning btn-sm js-tooltip btn-show-text" role="button" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show decrypted string">
+                        <em class="fas fa-fw fa-eye"></em>
                     </div>
                 </div>
             </div>
-            <p class="d-inline-block text-truncate w-100 mb-1">
-                {{- form.data.encrypted -}}
-            </p>
+            <div>
+                <div class="text-asterix">***</div>
+                <div class="text-plain d-none">
+                    <div class="d-inline-block text-break w-100">
+                        {{- form.data.encrypted -}}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
@@ -95,8 +115,18 @@
              $('.js-tooltip').tooltip();
              $('.js-copy').click(function () {
                  var text = $(this).attr('data-copy');
-                 var el = $(this);
-                 copyToClipboard(text, el);
+                 var $el = $(this);
+                 copyToClipboard(text, $el);
+             });
+             $('.btn-show-text').click(function () {
+                 var $row = $(this).closest('.list-group-item');
+                 if ($(this).hasClass('active')) {
+                     $row.find('.text-asterix').removeClass('d-none');
+                     $row.find('.text-plain').addClass('d-none');
+                 } else {
+                     $row.find('.text-asterix').addClass('d-none');
+                     $row.find('.text-plain').removeClass('d-none');
+                 }
              });
          });
      </script>

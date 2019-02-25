@@ -1,12 +1,17 @@
 {% extends '@app/pages/form.html.twig' %}
 {% import "@app/meta/forms.html.twig" as forms %}
 
-{% block input %}
+{% block input_row %}
     <div class="input-group-prepend">
         <span class="input-group-text">
-            <em class="fas fa-fw fa-eye-slash"></em>
+            <em class="fas fa-fw fa-hashtag"></em>
         </span>
     </div>
-    <input type="text" name="encrypted" class="form-control form-control-lg{% if form.errors.encrypted %} is-invalid{% endif %} js-tooltip" value="{{ form.data.encrypted }}" placeholder="Encrypted string to decode"  data-toggle="tooltip" data-placement="top" title="Encrypted string to decode"/>
+    <input type="password" name="encrypted" class="form-field-encrypted form-control form-control-lg{% if form.errors.encrypted %} is-invalid{% endif %} js-tooltip" value="{{ form.data.encrypted }}" placeholder="Encrypted string to decode" data-toggle="tooltip" data-placement="top" title="Encrypted string to decode"/>
+    <div class="input-group-append">
+        <div class="btn btn-outline-warning btn-lg js-tooltip btn-show-text" role="button" for=".form-field-encrypted" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show encrypted string">
+            <em class="fas fa-fw fa-eye"></em>
+        </div>
+    </div>
     {{ forms.error(form, 'encrypted') }}
 {% endblock %}

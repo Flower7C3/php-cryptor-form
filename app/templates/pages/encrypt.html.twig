@@ -1,13 +1,17 @@
 {% extends '@app/pages/form.html.twig' %}
 {% import "@app/meta/forms.html.twig" as forms %}
 
-{% block input %}
+{% block secret_second_input %}
+    <input type="password" name="secret2" class="form-field-secret form-control form-control-lg{% if form.errors.secret %} is-invalid{% endif %} js-tooltip" value="{{ form.data.secret2 }}" placeholder="Repeat secret key" data-toggle="tooltip" data-placement="top" title="Your secret key (repeat)"/>
+{% endblock %}
+
+{% block input_row %}
     <div class="input-group-prepend">
         <span class="input-group-text">
-            <em class="fas fa-fw fa-eye" style="align-self:self-start;margin-top:9px;"></em>
+            <em class="far fa-fw fa-comment-alt" style="align-self:self-start;margin-top:9px;"></em>
         </span>
     </div>
-    <textarea rows="1" name="decrypted" id="decrypted" class="form-control form-control-lg{% if form.errors.decrypted %} is-invalid{% endif %} js-tooltip" style="resize:none" placeholder="Plain text string to encode" data-toggle="tooltip" data-placement="top" title="Plain text string to encode">
+    <textarea rows="1" name="decrypted" class="form-field-decrypted form-control form-control-lg{% if form.errors.decrypted %} is-invalid{% endif %} js-tooltip" style="resize:none" placeholder="Plain text string to encode" data-toggle="tooltip" data-placement="top" title="Plain text string to encode">
         {{- form.data.decrypted -}}
     </textarea>
     {{ forms.error(form, 'decrypted') }}
