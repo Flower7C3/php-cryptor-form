@@ -3,36 +3,48 @@
 
 {% block container %}
     <form method="POST" action="{{ path(form_action) }}" autocomplete="off">
-        <div class="form-group">
-            <div class="input-group mb-2">
-                {% block secret_row %}
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
+        {% block secrets_group %}
+            <div class="form-row">
+                {% block secret1_form_group %}
+                    <div class="form-group {% block secret1_form_group_class %}col-md-12 col-lg-5{% endblock %}">
+                        <label for="secret">
                             <em class="fas fa-fw fa-key"></em>
-                        </span>
-                    </div>
-                    {% block secret_first_input %}
-                        <input type="password" name="secret" class="form-field-secret form-control form-control-lg{% if form.errors.secret %} is-invalid{% endif %} js-tooltip" value="{{ form.data.secret }}" placeholder="Your secret key" data-toggle="tooltip" data-placement="top" title="Your secret key"/>
-                    {% endblock %}
-                    {% block secret_second_input %}
-                    {% endblock %}
-                    <div class="input-group-append">
-                        <div class="btn btn-outline-warning btn-lg js-tooltip btn-show-text" role="button" for=".form-field-secret" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show secret key">
-                            <em class="fas fa-fw fa-eye"></em>
+                            Your secret key
+                        </label>
+                        <div class="input-group">
+                            <input type="password" id="secret" name="secret" class="form-field-secret form-control form-control-lg{% if form.errors.secret %} is-invalid{% endif %} js-tooltip" value="{{ form.data.secret }}" placeholder="Your secret key" data-toggle="tooltip" data-placement="top" title="Your secret key"/>
+                            <div class="input-group-append">
+                                <div class="btn btn-outline-warning btn-lg js-tooltip btn-show-text" role="button" for=".form-field-secret" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show secret key">
+                                    <em class="fas fa-fw fa-eye"></em>
+                                </div>
+                            </div>
+                            {{ forms.error(form, 'secret') }}
                         </div>
                     </div>
-                    <input type="text" class="col form-control form-control-lg{% if form.errors.hash %} is-invalid{% endif %} js-tooltip" value="{{ cyptor_hash }}" disabled data-toggle="tooltip" data-placement="top" title="Instance secret key hash"/>
-                    {{ forms.error(form, 'secret') }}
-                    {{ forms.error(form, 'hash') }}
+                {% endblock %}
+                {% block secret2_form_group %}
+                    <div class="form-group {% block secret2_form_group_class %}col-md-9 col-lg-5{% endblock %}">
+                        <label for="secret">
+                            <em class="fas fa-fw fa-key"></em>
+                            Repeat Your secret key
+                        </label>
+                        <input type="password" id="secret2" name="secret2" class="form-field-secret form-control form-control-lg{% if form.errors.secret %} is-invalid{% endif %} js-tooltip" value="{{ form.data.secret2 }}" placeholder="Repeat secret key" data-toggle="tooltip" data-placement="top" title="Your secret key (repeat)"/>
+                        {{ forms.error(form, 'secret2') }}
+                    </div>
+                {% endblock %}
+                {% block hash_form_group %}
+                    <div class="form-group {% block hash_form_group_class %}col-md-3 col-lg-2{% endblock %}">
+                        <label for="hash">
+                            <em class="fas fa-fw fa-hashtag"></em>
+                            Instance hash
+                        </label>
+                        <input type="text" id="hash" class="form-control form-control-lg{% if form.errors.hash %} is-invalid{% endif %} js-tooltip" value="{{ cyptor_hash }}" disabled data-toggle="tooltip" data-placement="top" title="Instance secret key hash"/>
+                        {{ forms.error(form, 'hash') }}
+                    </div>
                 {% endblock %}
             </div>
-        </div>
-        <div class="form-group">
-            <div class="input-group mb-2">
-                {% block input_row %}
-                {% endblock %}
-            </div>
-        </div>
+        {% endblock %}
+        {% block input_form_group %}{% endblock %}
         <div class="form-group">
             <button type="submit" class="btn btn-primary">
                 <em class="fas fa-angle-double-right"></em>

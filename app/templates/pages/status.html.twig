@@ -5,7 +5,8 @@
         <div class="list-group-item">
             <div class="d-flex w-100 justify-content-between">
                 <h5>
-                    <em class="fas fa-fw fa-mask"></em> Instance secret key hash
+                    <em class="fas fa-fw fa-hashtag"></em>
+                    Instance secret key hash
                 </h5>
             </div>
             <p>
@@ -15,15 +16,16 @@
         <div class="list-group-item">
             <div class="d-flex w-100 justify-content-between">
                 <h5>
-                    <em class="fas fa-fw fa-key"></em> Your secret key
+                    <em class="fas fa-fw fa-key"></em>
+                    Your secret key
                 </h5>
                 <div class="btn-group">
-                    <div class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="{{ form.data.secret }}" title="Copy secret key to clipboard">
+                    <a href="#" class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="{{ form.data.secret }}" title="Copy secret key to clipboard">
                         <em class="fas fa-fw fa-copy"></em>
-                    </div>
-                    <div class="btn btn-outline-warning btn-sm js-tooltip btn-show-text" role="button" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show secret key">
+                    </a>
+                    <a href="#" class="btn btn-outline-warning btn-sm js-tooltip btn-show-text" role="button" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show secret key">
                         <em class="fas fa-fw fa-eye"></em>
-                    </div>
+                    </a>
                 </div>
             </div>
             <div>
@@ -36,7 +38,8 @@
         <div class="list-group-item">
             <div class="d-flex w-100 justify-content-between">
                 <h5>
-                    <em class="far fa-fw fa-comment-alt"></em> Decrypted string
+                    <em class="far fa-fw fa-comment-alt"></em>
+                    Decrypted string
                 </h5>
                 <div class="btn-group">
                     <div class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="{{ form.data.decrypted }}" title="Copy decrypted string to clipboard">
@@ -57,7 +60,8 @@
         <div class="list-group-item">
             <div class="d-flex w-100 justify-content-between">
                 <h5>
-                    <em class="fas fa-fw fa-hashtag"></em> Encrypted string
+                    <em class="fas fa-fw fa-comment-alt"></em>
+                    Encrypted string
                 </h5>
                 <div class="btn-group">
                     <a class="btn btn-outline-secondary btn-sm js-tooltip" href="{{ path('app_encrypted_hash', {encrypted:form.data.encrypted, hash:cyptor_hash}) }}" target="_blank" rel="nofollow" data-toggle="tooltip" data-placement="top" title="Open share link with encrypted string">

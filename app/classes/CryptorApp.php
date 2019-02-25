@@ -48,7 +48,7 @@ class CryptorApp
                 $errors['secret'][] = 'Field can not be empty!';
             }
             if (empty($data['secret2'])) {
-                $errors['secret'][] = 'Field can not be empty!';
+                $errors['secret2'][] = 'Field can not be empty!';
             }
             if ($data['secret'] !== $data['secret2']) {
                 $errors['secret'][] = 'The given secrets are not the same!';
