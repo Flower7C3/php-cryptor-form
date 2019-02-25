@@ -44,6 +44,7 @@ class MicroKernel extends Kernel
         $routes->add('/encrypt', 'kernel:renderFormAction', 'app_form_encrypt');
         $routes->add('/decrypt', 'kernel:renderFormAction', 'app_form_decrypt');
         $routes->add('/encrypted/{encrypted}', 'kernel:renderFormAction', 'app_encrypted');
+        $routes->add('/encrypted/{encrypted}/{hash}', 'kernel:renderFormAction', 'app_encrypted_hash');
     }
 
     public function getCacheDir()
@@ -77,6 +78,9 @@ class MicroKernel extends Kernel
 
         /* app */
         $cryptorApp = new CryptorApp($container->getParameter('cryptor_master_secret'));
+        $params = [
+            'cyptor_hash' => $cryptorApp->getSecretHash(),
+        ];
         switch ($request->attributes->get('_route')) {
             case 'app_form_encrypt':
                 $action = 'encrypt';
@@ -85,6 +89,7 @@ class MicroKernel extends Kernel
                 $action = 'decrypt';
                 break;
             case 'app_encrypted':
+            case 'app_encrypted_hash':
                 $action = 'decrypt';
                 break;
         }
@@ -105,10 +110,8 @@ class MicroKernel extends Kernel
         }
 
         /* view */
-        $params = [
-            'form' => $cryptorResult,
-            'form_action' => $formAction,
-        ];
+        $params['form'] = $cryptorResult;
+        $params['form_action'] = $formAction;
         $template = $container->get('twig')->render($templateName, $params);
         return new Response($template);
     }

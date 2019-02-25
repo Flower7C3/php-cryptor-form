@@ -3,11 +3,11 @@
 
 {% block input %}
     <div class="input-group-prepend">
-        <abbr class="input-group-text" title="Plain text string to encode">
+        <span class="input-group-text">
             <em class="fas fa-fw fa-eye" style="align-self:self-start;margin-top:9px;"></em>
-        </abbr>
+        </span>
     </div>
-    <textarea rows="1" name="decrypted" id="decrypted" class="form-control form-control-lg{% if form.errors.decrypted %} is-invalid{% endif %}" style="resize:none" placeholder="Plain text string to encode">
+    <textarea rows="1" name="decrypted" id="decrypted" class="form-control form-control-lg{% if form.errors.decrypted %} is-invalid{% endif %} js-tooltip" style="resize:none" placeholder="Plain text string to encode" data-toggle="tooltip" data-placement="top" title="Plain text string to encode">
         {{- form.data.decrypted -}}
     </textarea>
     {{ forms.error(form, 'decrypted') }}

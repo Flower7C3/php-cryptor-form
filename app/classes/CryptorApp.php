@@ -19,6 +19,14 @@ class CryptorApp
         $this->secret = $secret;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getSecretHash()
+    {
+        return strtoupper(substr(md5($this->secret), 0, 7));
+    }
+
     public function encryptData(Request $request)
     {
         $success = false;
@@ -70,6 +78,10 @@ class CryptorApp
         $data['secret'] = $request->request->get('secret');
         $data['encrypted'] = $request->attributes->get('encrypted', $request->query->get('encrypted', $request->request->get('encrypted')));
         $data['decrypted'] = '';
+
+        if ($request->attributes->has('hash') && $request->attributes->get('hash') !== $this->getSecretHash()) {
+            $errors['hash'][] = sprintf('Given request hash <code>%s</code> is different than this instance hash.', $request->get('hash'));
+        }
 
         if ($request->getMethod() === 'POST') {
             if (empty($data['secret'])) {
