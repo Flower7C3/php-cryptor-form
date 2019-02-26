@@ -126,9 +126,9 @@ class CryptorApp
 
     private function formatData($data)
     {
-        $data['decryptedNice'] = $data['decrypted'];
-        if (preg_match("'([A-Za-z0-9-_ ]+): '", $data['decryptedNice'])) {
-            $rows = explode("\n", $data['decryptedNice']);
+        $data['decryptedNice'] = null;
+        if (preg_match("'([A-Za-z0-9-_ ]+): '", $data['decrypted'])) {
+            $rows = explode("\n", $data['decrypted']);
             $response = [];
             foreach ($rows as $index => $row) {
                 $row = trim($row);
