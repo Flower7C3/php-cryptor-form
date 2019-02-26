@@ -129,38 +129,25 @@ class CryptorApp
         $data['decryptedNice'] = $data['decrypted'];
         if (preg_match("'([A-Za-z0-9-_ ]+): '", $data['decryptedNice'])) {
             $rows = explode("\n", $data['decryptedNice']);
+            $response = [];
             foreach ($rows as $index => $row) {
                 $row = trim($row);
-                $row = preg_replace("'^([A-Za-z0-9-_ ]+): (https?:\/\/[\w\-\.!~#?&=+\*\'\"(),\/]+)'",
-                    '<div>'
-                    . '<strong>$1</strong>: '
-                    . '<span class="text-primary">'
-                    . '<span id="form_decrypted_' . $index . '-asterix">***</span>'
-                    . '<span id="form_decrypted_' . $index . '-plain" class="d-none">$2</span>'
-                    . '</span>'
-                    . '</div>'
-                    . '<div class="btn-group">'
-                    . '<a href="$2" target="_blank" class="btn btn-outline-secondary btn-sm js-tooltip" role="button" data-toggle="tooltip" data-placement="top" title="Open $1 in new window"><em class="fas fa-fw fa-external-link-alt"></em></a>'
-                    . '<a href="#" class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="$2" title="Copy $1 to clipboard"><em class="fas fa-fw fa-copy"></em></a>'
-                    . '<a href="#" class="btn btn-outline-warning btn-sm js-tooltip js-show-text" for="#form_decrypted_' . $index . '" role="button" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show $1"><em class="fas fa-fw fa-eye"></em></a>'
-                    . '</div>'
-                    , $row);
-                $row = preg_replace("'^([A-Za-z0-9-_ ]+): (.*)$'",
-                    '<div>'
-                    . '<strong>$1</strong>: '
-                    . '<kbd id="form_decrypted_' . $index . '">'
-                    . '<span id="form_decrypted_' . $index . '-asterix">***</span>'
-                    . '<span id="form_decrypted_' . $index . '-plain" class="d-none">$2</span>'
-                    . '</kbd>'
-                    . '</div>'
-                    . '<div class="btn-group">'
-                    . '<a href="#" class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="$2" title="Copy $1 to clipboard"><em class="fas fa-fw fa-copy"></em></a>'
-                    . '<a href="#" class="btn btn-outline-warning btn-sm js-tooltip js-show-text" for="#form_decrypted_' . $index . '" role="button" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show $1"><em class="fas fa-fw fa-eye"></em></a>'
-                    . '</div>'
-                    , $row);
-                $rows[$index] = $row;
+                $matches = [];
+                if (preg_match_all("'^([A-Za-z0-9-_ ]+): (.*)$'", $row, $matches)) {
+                    $response[$index] = [
+                        'key' => $matches[1][0],
+                        'value' => $matches[2][0],
+                        'type' => preg_match("'(https?:\/\/[\w\-\.!~#?&=+\*\'\"(),\/]+)'", $matches[2][0]) ? 'link' : 'value',
+                    ];
+                } else {
+                    $response[$index] = [
+                        'key' => 'text',
+                        'value' => $row,
+                        'type' => 'text',
+                    ];
+                }
             }
-            $data['decryptedNice'] = '<ul class="list-group list-group-flush"><li class="list-group-item d-flex w-100 justify-content-between">' . implode('</li><li class="list-group-item d-flex w-100 justify-content-between">', $rows) . '</li></ul>';
+            $data['decryptedNice'] = $response;
         }
         return $data;
     }

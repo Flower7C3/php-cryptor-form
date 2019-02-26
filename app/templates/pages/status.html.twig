@@ -53,7 +53,38 @@
             <div>
                 <div id="form_decrypted-asterix">***</div>
                 <div id="form_decrypted-plain" class="d-none">
-                    {{- form.data.decryptedNice|raw -}}
+                    {%- if form.data.decryptedNice is not empty -%}
+                        <ul class="list-group list-group-flush">
+                            {%- for index,row in form.data.decryptedNice -%}
+                                <li class="list-group-item d-flex w-100 justify-content-between">
+                                    <div>
+                                        {% if row.type != 'text' %}
+                                            <strong>{{ row.key }}</strong>:
+                                        {% endif %}
+                                        {% if row.type == 'value' %}<kbd>{% else %}<span class="text-primary">{% endif %}
+                                            <span id="form_decrypted_{{ index }}-asterix">***</span>
+                                            <span id="form_decrypted_{{ index }}-plain" class="d-none">{{ row.value }}</span>
+                                        {% if row.type != 'value' %}</span>{% else %}</kbd>{% endif %}
+                                    </div>
+                                    <div class="btn-group">
+                                        {% if row.type == 'link' %}
+                                            <a href="{{ row.value }}" target="_blank" class="btn btn-outline-secondary btn-sm js-tooltip" role="button" data-toggle="tooltip" data-placement="top" title="Open {{ row.key }} in new window">
+                                                <em class="fas fa-fw fa-external-link-alt"></em>
+                                            </a>
+                                        {% endif %}
+                                        <a href="#" class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="{{ row.value }}" title="Copy {{ row.key }} to clipboard">
+                                            <em class="fas fa-fw fa-copy"></em>
+                                        </a>
+                                        <a href="#" class="btn btn-outline-warning btn-sm js-tooltip js-show-text" for="#form_decrypted_{{ index }}" role="button" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show {{ row.key }}">
+                                            <em class="fas fa-fw fa-eye"></em>
+                                        </a>
+                                    </div>
+                                </li>
+                            {%- endfor -%}
+                        </ul>
+                    {%- else -%}
+                        {{- form.data.decrypted|raw -}}
+                    {%- endif -%}
                 </div>
             </div>
         </div>
