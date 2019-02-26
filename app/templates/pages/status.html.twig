@@ -23,14 +23,14 @@
                     <a href="#" class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="{{ form.data.secret }}" title="Copy secret key to clipboard">
                         <em class="fas fa-fw fa-copy"></em>
                     </a>
-                    <a href="#" class="btn btn-outline-warning btn-sm js-tooltip btn-show-text" role="button" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show secret key">
+                    <a href="#" class="btn btn-outline-warning btn-sm js-tooltip js-show-text" for="#form_secret" role="button" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show secret key">
                         <em class="fas fa-fw fa-eye"></em>
                     </a>
                 </div>
             </div>
             <div>
-                <div class="text-asterix">***</div>
-                <div class="text-plain d-none">
+                <div id="form_secret-asterix">***</div>
+                <div id="form_secret-plain" class="d-none">
                     {{- form.data.secret -}}
                 </div>
             </div>
@@ -45,14 +45,14 @@
                     <div class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="{{ form.data.decrypted }}" title="Copy decrypted string to clipboard">
                         <em class="fas fa-fw fa-copy"></em>
                     </div>
-                    <div class="btn btn-outline-warning btn-sm js-tooltip btn-show-text" role="button" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show decrypted string">
+                    <div class="btn btn-outline-warning btn-sm js-tooltip js-show-text" for="#form_decrypted" role="button" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show decrypted string">
                         <em class="fas fa-fw fa-eye"></em>
                     </div>
                 </div>
             </div>
             <div>
-                <div class="text-asterix">***</div>
-                <div class="text-plain d-none">
+                <div id="form_decrypted-asterix">***</div>
+                <div id="form_decrypted-plain" class="d-none">
                     {{- form.data.decryptedNice|raw -}}
                 </div>
             </div>
@@ -73,14 +73,14 @@
                     <div class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="{{ form.data.encrypted }}" title="Copy entrypted string to clipboard">
                         <em class="fas fa-fw fa-copy"></em>
                     </div>
-                    <div class="btn btn-outline-warning btn-sm js-tooltip btn-show-text" role="button" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show decrypted string">
+                    <div class="btn btn-outline-warning btn-sm js-tooltip js-show-text" for="#form_encrypted" role="button" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show decrypted string">
                         <em class="fas fa-fw fa-eye"></em>
                     </div>
                 </div>
             </div>
             <div>
-                <div class="text-asterix">***</div>
-                <div class="text-plain d-none">
+                <div id="form_encrypted-asterix">***</div>
+                <div id="form_encrypted-plain" class="d-none">
                     <div class="d-inline-block text-break w-100">
                         {{- form.data.encrypted -}}
                     </div>
@@ -122,14 +122,14 @@
                  var $el = $(this);
                  copyToClipboard(text, $el);
              });
-             $('.btn-show-text').click(function () {
-                 var $row = $(this).closest('.list-group-item');
+             $('.js-show-text').click(function () {
+                 var el = $(this).attr('for');
                  if ($(this).hasClass('active')) {
-                     $row.find('.text-asterix').removeClass('d-none');
-                     $row.find('.text-plain').addClass('d-none');
+                     $(el + '-asterix').removeClass('d-none');
+                     $(el + '-plain').addClass('d-none');
                  } else {
-                     $row.find('.text-asterix').addClass('d-none');
-                     $row.find('.text-plain').removeClass('d-none');
+                     $(el + '-asterix').addClass('d-none');
+                     $(el + '-plain').removeClass('d-none');
                  }
              });
          });

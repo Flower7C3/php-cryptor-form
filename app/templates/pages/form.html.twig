@@ -14,7 +14,7 @@
                         <div class="input-group">
                             <input type="password" id="secret" name="secret" class="form-field-secret form-control form-control-lg{% if form.errors.secret %} is-invalid{% endif %} js-tooltip" value="{{ form.data.secret }}" placeholder="Your secret key" data-toggle="tooltip" data-placement="top" title="Your secret key"/>
                             <div class="input-group-append">
-                                <div class="btn btn-outline-warning btn-lg js-tooltip btn-show-text" role="button" for=".form-field-secret" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show secret key">
+                                <div class="btn btn-outline-warning btn-lg js-tooltip js-show-text" role="button" for=".form-field-secret" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show secret key">
                                     <em class="fas fa-fw fa-eye"></em>
                                 </div>
                             </div>
@@ -60,7 +60,7 @@
     <script>
         $(document).ready(function () {
             $('.js-tooltip').tooltip();
-            $('.btn-show-text').click(function () {
+            $('.js-show-text').click(function () {
                 var $el = $($(this).attr('for'));
                 if ($(this).hasClass('active')) {
                     $el.attr('type', 'password');

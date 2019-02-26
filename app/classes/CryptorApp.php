@@ -132,15 +132,31 @@ class CryptorApp
             foreach ($rows as $index => $row) {
                 $row = trim($row);
                 $row = preg_replace("'^([A-Za-z0-9-_ ]+): (https?:\/\/[\w\-\.!~#?&=+\*\'\"(),\/]+)'",
-                    '<div><strong>$1</strong>: $2</div>'
+                    '<div>'
+                    . '<strong>$1</strong>: '
+                    . '<span>'
+                    . '<span id="form_decrypted_' . $index . '-asterix">***</span>'
+                    . '<span id="form_decrypted_' . $index . '-plain" class="d-none">$2</span>'
+                    . '</span>'
+                    . '</div>'
                     . '<div class="btn-group">'
                     . '<a href="$2" target="_blank" class="btn btn-outline-primary btn-sm js-tooltip" role="button" data-toggle="tooltip" data-placement="top" title="Open $1 in new window"><em class="fas fa-fw fa-external-link-alt"></em></a>'
-                    . '<a class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="$2" title="Copy $1 to clipboard"><em class="fas fa-fw fa-copy"></em></a>'
+                    . '<a href="#" class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="$2" title="Copy $1 to clipboard"><em class="fas fa-fw fa-copy"></em></a>'
+                    . '<a href="#" class="btn btn-outline-warning btn-sm js-tooltip js-show-text" for="#form_decrypted_' . $index . '" role="button" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show $1"><em class="fas fa-fw fa-eye"></em></a>'
                     . '</div>'
                     , $row);
                 $row = preg_replace("'^([A-Za-z0-9-_ ]+): (.*)$'",
-                    '<div><strong>$1</strong>: <kbd>$2</kbd></div>'
+                    '<div>'
+                    . '<strong>$1</strong>: '
+                    . '<kbd id="form_decrypted_' . $index . '">'
+                    . '<span id="form_decrypted_' . $index . '-asterix">***</span>'
+                    . '<span id="form_decrypted_' . $index . '-plain" class="d-none">$2</span>'
+                    . '</kbd>'
+                    . '</div>'
+                    . '<div class="btn-group">'
                     . '<a class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="$2" title="Copy $1 to clipboard"><em class="fas fa-fw fa-copy"></em></a>'
+                    . '<a href="#" class="btn btn-outline-warning btn-sm js-tooltip js-show-text" for="#form_decrypted_' . $index . '" role="button" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show $1"><em class="fas fa-fw fa-eye"></em></a>'
+                    . '</div>'
                     , $row);
                 $rows[$index] = $row;
             }
