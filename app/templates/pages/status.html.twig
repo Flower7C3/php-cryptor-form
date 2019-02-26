@@ -42,12 +42,12 @@
                     Decrypted string
                 </h5>
                 <div class="btn-group">
-                    <div class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="{{ form.data.decrypted }}" title="Copy decrypted string to clipboard">
+                    <a href="#" class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="{{ form.data.decrypted }}" title="Copy decrypted string to clipboard">
                         <em class="fas fa-fw fa-copy"></em>
-                    </div>
-                    <div class="btn btn-outline-warning btn-sm js-tooltip js-show-text" for="#form_decrypted" role="button" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show decrypted string">
+                    </a>
+                    <a href="#" class="btn btn-outline-warning btn-sm js-tooltip js-show-text" for="#form_decrypted" role="button" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show decrypted string">
                         <em class="fas fa-fw fa-eye"></em>
-                    </div>
+                    </a>
                 </div>
             </div>
             <div>
@@ -67,15 +67,15 @@
                     <a class="btn btn-outline-secondary btn-sm js-tooltip" href="{{ path('app_encrypted_hash', {encrypted:form.data.encrypted, hash:cyptor_hash}) }}" target="_blank" rel="nofollow" data-toggle="tooltip" data-placement="top" title="Open share link with encrypted string">
                         <em class="fas fa-fw fa-external-link-alt"></em>
                     </a>
-                    <div class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="{{ url('app_encrypted_hash', {encrypted:form.data.encrypted, hash:cyptor_hash}) }}" title="Copy entrypted link to clipboard">
+                    <a href="#" class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="{{ url('app_encrypted_hash', {encrypted:form.data.encrypted, hash:cyptor_hash}) }}" title="Copy entrypted link to clipboard">
                         <em class="fas fa-fw fa-link"></em>
-                    </div>
-                    <div class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="{{ form.data.encrypted }}" title="Copy entrypted string to clipboard">
+                    </a>
+                    <a href="#" class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="{{ form.data.encrypted }}" title="Copy entrypted string to clipboard">
                         <em class="fas fa-fw fa-copy"></em>
-                    </div>
-                    <div class="btn btn-outline-warning btn-sm js-tooltip js-show-text" for="#form_encrypted" role="button" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show decrypted string">
+                    </a>
+                    <a href="#" class="btn btn-outline-warning btn-sm js-tooltip js-show-text" for="#form_encrypted" role="button" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show decrypted string">
                         <em class="fas fa-fw fa-eye"></em>
-                    </div>
+                    </a>
                 </div>
             </div>
             <div>
