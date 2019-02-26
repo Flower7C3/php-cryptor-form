@@ -127,7 +127,7 @@ class CryptorApp
     private function formatData($data)
     {
         $data['decryptedNice'] = $data['decrypted'];
-        if (preg_match("'\n'", $data['decryptedNice'])) {
+        if (preg_match("'([A-Za-z0-9-_ ]+): '", $data['decryptedNice'])) {
             $rows = explode("\n", $data['decryptedNice']);
             foreach ($rows as $index => $row) {
                 $row = trim($row);
@@ -140,7 +140,7 @@ class CryptorApp
                     . '</span>'
                     . '</div>'
                     . '<div class="btn-group">'
-                    . '<a href="$2" target="_blank" class="btn btn-outline-primary btn-sm js-tooltip" role="button" data-toggle="tooltip" data-placement="top" title="Open $1 in new window"><em class="fas fa-fw fa-external-link-alt"></em></a>'
+                    . '<a href="$2" target="_blank" class="btn btn-outline-secondary btn-sm js-tooltip" role="button" data-toggle="tooltip" data-placement="top" title="Open $1 in new window"><em class="fas fa-fw fa-external-link-alt"></em></a>'
                     . '<a href="#" class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="$2" title="Copy $1 to clipboard"><em class="fas fa-fw fa-copy"></em></a>'
                     . '<a href="#" class="btn btn-outline-warning btn-sm js-tooltip js-show-text" for="#form_decrypted_' . $index . '" role="button" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show $1"><em class="fas fa-fw fa-eye"></em></a>'
                     . '</div>'
