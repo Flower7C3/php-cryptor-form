@@ -5,9 +5,9 @@
     <div class="form-group">
         <label for="secret">
             <em class="fas fa-fw fa-comment-alt"></em>
-            Plain text string to encode
+            Plain text message to encode
         </label>
-        <textarea rows="1" name="decrypted" id="decrypted" class="form-field-decrypted form-control form-control-lg{% if form.errors.decrypted %} is-invalid{% endif %} js-tooltip" style="resize:none" placeholder="Your plain text string to encode" data-toggle="tooltip" data-placement="top" title="Your plain text string to encode">
+        <textarea rows="1" name="decrypted" id="decrypted" class="form-field-decrypted form-control form-control-lg{% if form.errors.decrypted %} is-invalid{% endif %} js-tooltip" style="resize:none" placeholder="Your plain text message to encode" data-toggle="tooltip" data-placement="top" title="Your plain text message to encode">
             {{- form.data.decrypted -}}
         </textarea>
         {{ forms.error(form, 'decrypted') }}
