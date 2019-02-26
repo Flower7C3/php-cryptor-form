@@ -135,15 +135,25 @@ class CryptorApp
                 $matches = [];
                 if (preg_match_all("'^([A-Za-z0-9-_ ]+): (.*)$'", $row, $matches)) {
                     $response[$index] = [
-                        'key' => $matches[1][0],
-                        'value' => $matches[2][0],
-                        'type' => preg_match("'(https?:\/\/[\w\-\.!~#?&=+\*\'\"(),\/]+)'", $matches[2][0]) ? 'link' : 'value',
+                        'name' => [
+                            'type' => preg_match("'^(fa(r|s|b) fa-([a-z-]+))$'", $matches[1][0]) ? 'icon' : 'text',
+                            'value' => $matches[1][0],
+                        ],
+                        'data' => [
+                            'type' => preg_match("'(https?:\/\/[\w\-\.!~#?&=+\*\'\"(),\/]+)'", $matches[2][0]) ? 'link' : 'kbd',
+                            'value' => $matches[2][0],
+                        ],
                     ];
                 } else {
                     $response[$index] = [
-                        'key' => 'text',
-                        'value' => $row,
-                        'type' => 'text',
+                        'name' => [
+                            'type' => 'none',
+                            'value' => 'text',
+                        ],
+                        'data' => [
+                            'type' => 'text',
+                            'value' => $row,
+                        ],
                     ];
                 }
             }
