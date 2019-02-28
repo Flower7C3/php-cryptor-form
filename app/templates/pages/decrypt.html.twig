@@ -13,7 +13,7 @@
         <div class="input-group">
             <input type="password" name="encrypted" class="form-field-encrypted form-control form-control-lg{% if form.errors.encrypted %} is-invalid{% endif %} js-tooltip" value="{{ form.data.encrypted }}" placeholder="Encrypted message to decode" data-toggle="tooltip" data-placement="top" title="Encrypted message to decode"/>
             <div class="input-group-append">
-                <div class="btn btn-outline-warning btn-lg js-tooltip js-show-text" role="button" for=".form-field-encrypted" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show encrypted message">
+                <div class="btn btn-outline-warning btn-lg js-tooltip js-input-password-toggle" role="button" for=".form-field-encrypted" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show encrypted message">
                     <em class="fas fa-fw fa-eye"></em>
                 </div>
             </div>

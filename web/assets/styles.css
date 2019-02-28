@@ -1,0 +1,11 @@
+.js-copy {
+    cursor: copy;
+}
+
+.js-show-text {
+    cursor: alias;
+}
+
+textarea.no-resize {
+    resize: none;
+}

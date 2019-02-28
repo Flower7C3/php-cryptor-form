@@ -7,23 +7,9 @@
             <em class="fas fa-fw fa-comment-alt"></em>
             Plain text message to encode
         </label>
-        <textarea rows="1" name="decrypted" id="decrypted" class="form-field-decrypted form-control form-control-lg{% if form.errors.decrypted %} is-invalid{% endif %} js-tooltip" style="resize:none" placeholder="Your plain text message to encode" data-toggle="tooltip" data-placement="top" title="Your plain text message to encode">
+        <textarea rows="1" name="decrypted" id="decrypted" class="form-field-decrypted no-resize form-control form-control-lg{% if form.errors.decrypted %} is-invalid{% endif %} js-tooltip" placeholder="Your plain text message to encode" data-toggle="tooltip" data-placement="top" title="Your plain text message to encode">
             {{- form.data.decrypted -}}
         </textarea>
         {{ forms.error(form, 'decrypted') }}
     </div>
 {% endblock %}
-
-
- {% block scripts %}
-     {{ parent() }}
-     <script>
-         var textarea = document.getElementById("decrypted");
-         var limit = 180;
-         textarea.oninput = function () {
-             textarea.style.height = "";
-             console.log(textarea.scrollHeight)
-             textarea.style.height = Math.min(textarea.scrollHeight, limit) + "px";
-         };
-     </script>
- {% endblock %}

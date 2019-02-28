@@ -113,7 +113,37 @@ class MicroKernel extends Kernel
         $params['form'] = $cryptorResult;
         $params['form_action'] = $formAction;
         $template = $container->get('twig')->render($templateName, $params);
-        return new Response($template);
+        $response = new Response($template);
+        $cspConfig = [
+            'default-src' => ['none'],
+            'img-src' => ['self', 'data:'],
+            'script-src' => ['self', 'cdnjs.cloudflare.com'],
+            'style-src' => ['self', 'cdnjs.cloudflare.com', 'use.fontawesome.com'],
+            'font-src' => ['self', 'use.fontawesome.com'],
+            'form-action' => ['self'],
+        ];
+
+        $response->headers->set("Content-Security-Policy", $this->csp($cspConfig));
+        $response->headers->set("X-Content-Security-Policy", $this->csp($cspConfig));
+        $response->headers->set("X-WebKit-CSP", $this->csp($cspConfig));
+        return $response;
+    }
+
+    private function csp(array $config = [])
+    {
+        $cspTable = [];
+        foreach ($config as $key => $vals) {
+            $cspRow = [];
+            $cspRow[] = $key;
+            foreach ($vals as $val) {
+                if (preg_match("'^(none$|self$|unsafe-inline$|unsafe-eval$|nonce-|sha256-)'", $val)) {
+                    $val = "'" . $val . "'";
+                }
+                $cspRow[] = $val;
+            }
+            $cspTable[] = implode(' ', $cspRow);
+        }
+        return implode('; ', $cspTable);
     }
 
 }
