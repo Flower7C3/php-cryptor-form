@@ -7,7 +7,7 @@
             <em class="fas fa-fw fa-comment-alt"></em>
             Plain text message to encode
         </label>
-        <textarea rows="1" name="decrypted" id="decrypted" class="form-field-decrypted no-resize form-control form-control-lg{% if form.errors.decrypted %} is-invalid{% endif %} js-tooltip" placeholder="Your plain text message to encode" data-toggle="tooltip" data-placement="top" title="Your plain text message to encode">
+        <textarea rows="1" name="decrypted" id="decrypted" class="form-field-decrypted no-resize form-control form-control-lg{% if form.errors.decrypted %} is-invalid{% endif %} js-tooltip" placeholder="Your plain text message to encode" data-toggle="tooltip" data-placement="top" title="Your plain text message to encode" {% if form.autofocus === 'decrypted' %} autofocus{% endif %}>
             {{- form.data.decrypted -}}
         </textarea>
         {{ forms.error(form, 'decrypted') }}

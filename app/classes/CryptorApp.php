@@ -42,8 +42,10 @@ class CryptorApp
         $data['secret2'] = $request->request->get('secret2', $randomSecret);
         $data['encrypted'] = '';
         $data['decrypted'] = $request->request->get('decrypted');
+        $autofocus = 'decrypted';
 
         if ($request->getMethod() === 'POST') {
+            $autofocus = null;
             if (empty($data['secret'])) {
                 $errors['secret'][] = 'Field can not be empty!';
             }
@@ -77,6 +79,7 @@ class CryptorApp
             'success' => $success,
             'data' => $this->formatData($data),
             'errors' => $errors,
+            'autofocus' => $autofocus,
         ];
 
     }
@@ -94,12 +97,14 @@ class CryptorApp
         $data['secret'] = $request->request->get('secret');
         $data['encrypted'] = $request->attributes->get('encrypted', $request->query->get('encrypted', $request->request->get('encrypted')));
         $data['decrypted'] = '';
+        $autofocus = 'encrypted';
 
         if ($request->attributes->has('hash') && $request->attributes->get('hash') !== $this->getSecretHash()) {
             $errors['hash'][] = sprintf('Given request hash <code>%s</code> is different than this instance hash.', $request->get('hash'));
         }
 
         if ($request->getMethod() === 'POST') {
+            $autofocus = 'null';
             if (empty($data['secret'])) {
                 $errors['secret'][] = 'Field can not be empty!';
             }
@@ -121,6 +126,7 @@ class CryptorApp
             'success' => $success,
             'data' => $this->formatData($data),
             'errors' => $errors,
+            'autofocus' => $autofocus,
         ];
     }
 
