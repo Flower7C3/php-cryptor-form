@@ -28,7 +28,7 @@
                             <em class="fas fa-fw fa-key"></em>
                             Repeat Your secret key
                         </label>
-                        <input type="password" id="secret2" name="secret2" class="form-field-secret form-control form-control-lg{% if form.errors.secret %} is-invalid{% endif %} js-tooltip" value="{{ form.data.secret2 }}" placeholder="Repeat secret key" data-toggle="tooltip" data-placement="top" title="Your secret key (repeat)" {% if form.autofocus === 'secret2' %} autofocus{% endif %}/>
+                        <input type="password" id="secret2" name="secret2" class="form-field-secret form-control form-control-lg{% if form.errors.secret %} is-invalid{% endif %} js-tooltip" value="{{ form.data.secret2 }}" placeholder="Repeat secret key" data-toggle="tooltip" data-placement="top" title="Your secret key (repeat)" {% if form.autofocus ==  'secret2' %} autofocus{% endif %}/>
                         {{ forms.error(form, 'secret2') }}
                     </div>
                 {% endblock %}
