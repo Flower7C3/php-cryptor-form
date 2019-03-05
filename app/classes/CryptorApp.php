@@ -97,7 +97,7 @@ class CryptorApp
         $data['secret'] = $request->request->get('secret');
         $data['encrypted'] = $request->attributes->get('encrypted', $request->query->get('encrypted', $request->request->get('encrypted')));
         $data['decrypted'] = '';
-        $autofocus = 'encrypted';
+        $autofocus = 'secret';
 
         if ($request->attributes->has('hash') && $request->attributes->get('hash') !== $this->getSecretHash()) {
             $errors['hash'][] = sprintf('Given request hash <code>%s</code> is different than this instance hash.', $request->get('hash'));
