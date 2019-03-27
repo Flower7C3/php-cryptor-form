@@ -15,6 +15,11 @@
     </head>
     <body class="d-flex flex-column h-100">
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
+            {% if logo %}
+                <a class="navbar-brand" href="#">
+                    <img src="{{ logo }}" width="30" height="30" alt="">
+                </a>
+            {% endif %}
             <div class="navbar-collapse">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item{% if app.request.attributes.get('_route') == 'app_form_encrypt' %} active{% endif %}">

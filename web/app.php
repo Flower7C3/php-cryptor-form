@@ -112,6 +112,10 @@ class MicroKernel extends Kernel
         /* view */
         $params['form'] = $cryptorResult;
         $params['form_action'] = $formAction;
+        $params['logo'] = '/assets/site-logo.png';
+        if (!file_exists(ROOT_DIR . '/web' . $params['logo'])) {
+            $params['logo'] = null;
+        }
         $template = $container->get('twig')->render($templateName, $params);
         $response = new Response($template);
         $cspConfig = [

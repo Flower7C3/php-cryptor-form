@@ -3,3 +3,4 @@
 app/config/parameters.yaml
 vendor/
 var/
+web/assets/site-logo.png
