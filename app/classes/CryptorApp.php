@@ -139,7 +139,7 @@ class CryptorApp
             foreach ($rows as $index => $row) {
                 $row = trim($row);
                 $matches = [];
-                if (preg_match_all("'^([A-Za-z0-9-_ ]+): (.*)$'", $row, $matches)) {
+                if (preg_match_all("'^([A-Za-z0-9-_/ ]+): (.*)$'", $row, $matches)) {
                     $response[$index] = [
                         'name' => [
                             'type' => preg_match("'^(fa(r|s|b) fa-([a-z-]+))$'", $matches[1][0]) ? 'icon' : 'text',
