@@ -1,7 +1,7 @@
 {
     "require": {
         "php": ">=7.1",
-        "symfony/symfony": "3.4",
+        "symfony/symfony": "3.4.35",
         "incenteev/composer-parameter-handler": "^2.1",
         "symfony/dotenv": "3.4"
     },
