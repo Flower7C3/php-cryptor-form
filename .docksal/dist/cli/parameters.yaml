@@ -1,0 +1,4 @@
+# This file is auto-generated during the composer install
+parameters:
+  secret: R3VHqgmtjHymRe74WSBvFCLD
+  cryptor_master_secret: 'docksal'

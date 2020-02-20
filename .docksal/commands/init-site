@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+#: exec_target = cli
+
+## Initialize/reinstall site
+##
+## Usage: fin init-site
+
+# Abort if anything fails
+set -e
+
+# fix profile
+source ~/.profile
+
+#-------------------------- Settings --------------------------------
+#-------------------------- END: Settings --------------------------------
+
+#-------------------------- Helper functions --------------------------------
+function copy_settings_file()
+{
+	local source="$1"
+	local dest="$2"
+
+	if [[ ! -f ${dest} ]]; then
+		echo "Copying ${dest}..."
+		cp ${source} ${dest}
+	else
+		echo "${dest} already in place."
+	fi
+}
+#-------------------------- END: Helper functions --------------------------------
+
+#-------------------------- Functions --------------------------------
+function cache_clean(){
+    cd ${PROJECT_ROOT}
+    rm -rf var/cache/*
+}
+function composer_install(){
+    cd ${PROJECT_ROOT}
+    composer install
+}
+#-------------------------- END: Functions --------------------------------
+
+#-------------------------- Execution --------------------------------
+copy_settings_file ${PROJECT_ROOT}/.docksal/dist/cli/parameters.yaml ${PROJECT_ROOT}/app/config/parameters.yaml
+cache_clean
+composer_install
+#-------------------------- END: Execution --------------------------------
