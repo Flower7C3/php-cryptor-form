@@ -24,13 +24,13 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item{% if app.request.attributes.get('_route') == 'app_form_encrypt' %} active{% endif %}">
                         <a href="{{ path('app_form_encrypt') }}" class="nav-link" rel="nofollow">
-                            <em class="fas fa-unlock"></em>
+                            <em class="fas fa-lock"></em>
                             Encrypt
                         </a>
                     </li>
                     <li class="nav-item{% if app.request.attributes.get('_route') == 'app_form_decrypt' or app.request.attributes.get('_route') == 'app_encrypted' or app.request.attributes.get('_route') == 'app_encrypted_hash' %} active{% endif %}">
                         <a href="{{ path('app_form_decrypt') }}" class="nav-link" rel="nofollow">
-                            <em class="fas fa-lock"></em>
+                            <em class="fas fa-unlock"></em>
                             Decrypt
                         </a>
                     </li>

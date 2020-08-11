@@ -9,9 +9,9 @@
                     Instance secret key hash
                 </h5>
             </div>
-            <p>
-                {{- cyptor_hash -}}
-            </p>
+            <div class="mt-2 mb-2">
+                <code>{{- cyptor_hash -}}</code>
+            </div>
         </div>
         <div class="list-group-item">
             <div class="d-flex justify-content-between align-items-center w-100">
@@ -28,11 +28,11 @@
                     </a>
                 </div>
             </div>
-            <div>
-                <div id="form_secret-asterix">***</div>
-                <div id="form_secret-plain" class="d-none">
+            <div id="form_secret" class="mt-2 mb-2">
+                <code id="form_secret-asterix">***</code>
+                <code id="form_secret-plain" class="d-none">
                     {{- form.data.secret -}}
-                </div>
+                </code>
             </div>
         </div>
         <div class="list-group-item">
@@ -50,14 +50,14 @@
                     </a>
                 </div>
             </div>
-            <div>
-                <div id="form_decrypted-asterix">***</div>
-                <div id="form_decrypted-plain" class="d-none">
-                    {%- if form.data.decryptedNice is not empty -%}
+            <div id="form_decrypted" class="mt-2 mb-2">
+                <code id="form_decrypted-asterix">***</code>
+                {%- if form.data.decryptedNice is not empty -%}
+                    <div id="form_decrypted-plain" class="d-none">
                         <ul class="list-group list-group-flush">
                             {%- for index,row in form.data.decryptedNice -%}
                                 <li class="list-group-item d-flex justify-content-between align-items-center w-100">
-                                    <div>
+                                    <div id="form_decrypted_{{ index }}">
                                         {% if row.name.type == 'text' %}
                                             <strong>{{ row.name.value }}</strong>
                                         {% elseif row.name.type == 'icon' %}
@@ -72,24 +72,29 @@
                                     </div>
                                     <div class="btn-group">
                                         {% if row.data.type == 'link' %}
-                                            <a href="{{ row.data.value }}" target="_blank" class="btn btn-outline-secondary btn-sm js-tooltip" role="button" data-toggle="tooltip" data-placement="top" title="Open{% if row.name.type == 'text' %} {{ row.name.value }}{% endif %} in new window">
+                                            <a href="{{ row.data.value }}" target="_blank" class="btn btn-outline-secondary btn-sm js-tooltip" role="button" data-toggle="tooltip" data-placement="top"
+                                               title="Open{% if row.name.type == 'text' %} {{ row.name.value }}{% endif %} in new window">
                                                 <em class="fas fa-fw fa-external-link-alt"></em>
                                             </a>
                                         {% endif %}
-                                        <a href="#" class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="{{ row.data.value }}" title="Copy{% if row.name.type == 'text' %} {{ row.name.value }}{% endif %} to clipboard">
+                                        <a href="#" class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="{{ row.data.value }}"
+                                           title="Copy{% if row.name.type == 'text' %} {{ row.name.value }}{% endif %} to clipboard">
                                             <em class="fas fa-fw fa-copy"></em>
                                         </a>
-                                        <a href="#" class="btn btn-outline-warning btn-sm js-tooltip js-show-text" for="#form_decrypted_{{ index }}" role="button" data-toggle="button" data-toggle="tooltip" data-placement="top" title="Show{% if row.name.type == 'text' %} {{ row.name.value }}{% endif %}">
+                                        <a href="#" class="btn btn-outline-warning btn-sm js-tooltip js-show-text" for="#form_decrypted_{{ index }}" role="button" data-toggle="button" data-toggle="tooltip" data-placement="top"
+                                           title="Show{% if row.name.type == 'text' %} {{ row.name.value }}{% endif %}">
                                             <em class="fas fa-fw fa-eye"></em>
                                         </a>
                                     </div>
                                 </li>
                             {%- endfor -%}
                         </ul>
-                    {%- else -%}
+                    </div>
+                {%- else -%}
+                    <code id="form_decrypted-plain" class="d-none">
                         {{- form.data.decrypted|raw -}}
-                    {%- endif -%}
-                </div>
+                    </code>
+                {%- endif -%}
             </div>
         </div>
         <div class="list-group-item">
@@ -99,10 +104,12 @@
                     Encrypted message
                 </h5>
                 <div class="btn-group">
-                    <a class="btn btn-outline-secondary btn-sm js-tooltip" href="{{ path('app_encrypted_hash', {encrypted:form.data.encrypted, hash:cyptor_hash}) }}" target="_blank" rel="nofollow" data-toggle="tooltip" data-placement="top" title="Open share link with encrypted message">
+                    <a class="btn btn-outline-secondary btn-sm js-tooltip" href="{{ path('app_encrypted_hash', {encrypted:form.data.encrypted, hash:cyptor_hash}) }}" target="_blank" rel="nofollow" data-toggle="tooltip" data-placement="top"
+                       title="Open share link with encrypted message">
                         <em class="fas fa-fw fa-external-link-alt"></em>
                     </a>
-                    <a href="#" class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="{{ url('app_encrypted_hash', {encrypted:form.data.encrypted, hash:cyptor_hash}) }}" title="Copy entrypted link to clipboard">
+                    <a href="#" class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="{{ url('app_encrypted_hash', {encrypted:form.data.encrypted, hash:cyptor_hash}) }}"
+                       title="Copy encrypted link to clipboard">
                         <em class="fas fa-fw fa-link"></em>
                     </a>
                     <a href="#" class="btn btn-outline-primary btn-sm js-tooltip js-copy" role="button" data-toggle="tooltip" data-placement="top" data-copy="{{ form.data.encrypted }}" title="Copy entrypted message to clipboard">
@@ -113,13 +120,11 @@
                     </a>
                 </div>
             </div>
-            <div>
-                <div id="form_encrypted-asterix">***</div>
-                <div id="form_encrypted-plain" class="d-none">
-                    <div class="d-inline-block text-break w-100">
-                        {{- form.data.encrypted -}}
-                    </div>
-                </div>
+            <div id="form_encrypted" class="mt-2 mb-2">
+                <code id="form_encrypted-asterix">***</code>
+                <code id="form_encrypted-plain" class="d-none">
+                    <span class="d-inline-block text-break w-100">{{- form.data.encrypted -}}</span>
+                </code>
             </div>
         </div>
     </div>
