@@ -45,6 +45,12 @@ class Cryptor
      */
     public function decrypt(string $input): string
     {
+        // prevent decrypt failing when $input is not hex or has odd length
+        // added via suggestion from @markusand, see comment:
+        // https://gist.github.com/Radiergummi/b326219f55edb33759791a78a1c134c3#gistcomment-2803128
+        if (strlen($input) % 2 || !ctype_xdigit($input)) {
+            return '';
+        }
         // we'll need the binary cipher
         $binaryInput = hex2bin($input);
         $iv = substr($binaryInput, 0, 16);
@@ -53,12 +59,6 @@ class Cryptor
         $key = hash(Cryptor::HASHING_ALGORITHM, $this->secret, true);
         // if the HMAC hash doesn't match the hash string, something has gone wrong
         if (hash_hmac(Cryptor::HASHING_ALGORITHM, $cipherText, $key, true) !== $encrypted) {
-            return '';
-        }
-        // prevent decrypt failing when $input is not hex or has odd length
-        // added via suggestion from @markusand, see comment:
-        // https://gist.github.com/Radiergummi/b326219f55edb33759791a78a1c134c3#gistcomment-2803128
-        if (strlen($input) % 2 || !ctype_xdigit($input)) {
             return '';
         }
         return openssl_decrypt(
